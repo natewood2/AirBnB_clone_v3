@@ -49,7 +49,7 @@ def deleting_review(review_id):
     return jsonify({}), 200
 
 
-app_views.route('/states/<state_id>/cities', methods=[P],
+@app_views.route('/states/<state_id>/cities', methods=[P],
                  strict_slashes=False)
 def creating_review(place_id):
     """ Creating a Review. """
