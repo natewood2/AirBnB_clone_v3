@@ -24,7 +24,7 @@ def listing_reviews(place_id):
     if not reviewed_place:
         abort(404)
     list_of_reviews = [review.to_dict() for review in reviewed_place.reviews]
-    return jsonify(list_of_places)
+    return jsonify(list_of_reviews)
 
 
 @app_views.route('/reviews/<review_id>', methods=[G],
