@@ -20,10 +20,10 @@ Pu = 'PUT'
                  strict_slashes=False)
 def listing_reviews(place_id):
     """ List of reviews. """
-    checking_reviews = storage.get(Place, place_id)
-    if not checking_reviews:
+    reviewed_place = storage.get(Place, place_id)
+    if not reviewed_place:
         abort(404)
-    list_of_places = [place.to_dict() for place in place_id.places]
+    list_of_reviews = [review.to_dict() for review in reviewed_place.reviews]
     return jsonify(list_of_places)
 
 
