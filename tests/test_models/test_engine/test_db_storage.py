@@ -7,6 +7,7 @@ from datetime import datetime
 import inspect
 import models
 from models.engine import db_storage
+from models import storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -86,3 +87,34 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+
+class TestDBStorageMethods(unittest.TestCase):
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def setUp(self):
+        os.environ["HBNB_MYSQL_USER"] = "hbnb_test"
+        os.environ["HBNB_MYSQL_PWD"] = "hbnb_test_pwd"
+        os.environ["HBNB_MYSQL_DB"] = "hbnb_test_db"
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count(self):
+        """Test that count properly counts objects in storage"""
+        state_total = storage.count(State)
+        state = State(name="Arizona")
+        state.save()
+        all_states = storage.count(State)
+        self.assertNotEqual(state_total, all_states)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get(self):
+        """Test that get properly retrieves objects from storage"""
+        state = State(name="Arizona")
+        state.save()
+        temp_state = storage.get(State, state.id)
+        self.assertIs(state, temp_state)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def tearDown(self):
+        os.environ["HBNB_MYSQL_USER"] = "hbnb_dev"
+        os.environ["HBNB_MYSQL_PWD"] = "hbnb_dev_pwd"
+        os.environ["HBNB_MYSQL_DB"] = "hbnb_dev_db"
