@@ -14,6 +14,7 @@ The console is the first segment of the AirBnB project at Holberton School that 
 * [File Descriptions](#file-descriptions)
 * [Usage](#usage)
 * [Examples of use](#examples-of-use)
+* [API endpoints](#api-endpoints)
 * [Bugs](#bugs)
 * [Authors](#authors)
 * [License](#license)
@@ -54,12 +55,15 @@ Classes inherited from Base Model:
 * [state.py](/models/state.py)
 * [user.py](/models/user.py)
 
-#### `/models/engine` directory contains File Storage class that handles JASON serialization and deserialization :
+#### `/models/engine` directory contains File Storage class that handles JSON serialization and deserialization :
 [file_storage.py](/models/engine/file_storage.py) - serializes instances to a JSON file & deserializes back to instances
 * `def all(self)` - returns the dictionary __objects
 * `def new(self, obj)` - sets in __objects the obj with key <obj class name>.id
 * `def save(self)` - serializes __objects to the JSON file (path: __file_path)
 * ` def reload(self)` -  deserializes the JSON file to __objects
+
+#### `/api/v1` directory contains flask API server and endpoints :
+* see the `API endpoints` section for more information
 
 #### `/tests` directory contains all unit test cases for this project:
 [/test_models/test_base_model.py](/tests/test_models/test_base_model.py) - Contains the TestBaseModel and TestBaseModelDocs classes
@@ -150,12 +154,58 @@ EOF  all  create  destroy  help  quit  show  update
 (hbnb) quit
 ```
 
+## API Endpoints
+
+#### Amenities
+* `GET /api/v1/amenities` - fetches a JSON of all amenities
+* `GET /api/v1/amenities/:amenity_id` - fetches a JSON for the amenity that has the id in the URL
+* `POST /api/v1/amenities` - creates a new amenity object from the data provided in the request body
+* `DELETE /api/v1/amenities/:amenity_id` - delete the amenity that has the id in the URL
+* `PUT /api/v1/amenities/:amenity_id` - update the amenity that has the id in the URL with the data provided in the request body
+
+#### Cities
+* `GET /api/v1/states/:state_id/cities` - fetches a JSON of all cities in the specified state
+* `GET /api/v1/cities/:city_id` - fetches a JSON for the city that has the id in the URL
+* `POST /api/v1/states/:state_id/cities` - creates a new city object from the data provided in the request body
+* `DELETE /api/v1/cities/:city_id` - delete the city that has the id in the URL
+* `PUT /api/v1/cities/:city_id` - update the city that has the id in the URL with the data provided in the request body
+
+#### Places
+* `GET /api/v1/cities/city_id/places` - fetches a JSON of all places in the specified city
+* `GET /api/v1/places/:place_id` - fetches a JSON for the place that has the id in the URL
+* `POST /api/v1/cities/city_id/places` - creates a new place object from the data provided in the request body
+* `DELETE /api/v1/places/:place_id` - delete the place that has the id in the URL
+* `PUT /api/v1/places:place_id` - update the place that has the id in the URL with the data provided in the request body
+
+#### Place Reviews
+* `GET /api/v1/places/place_id/reviews` - fetches a JSON of all reviews for the specified place
+* `GET /api/v1/reviews/:review_id` - fetches a JSON for the review that has the id in the URL
+* `POST /api/v1/places/place_id/reviews` - creates a new review object from the data provided in the request body
+* `DELETE /api/v1/reviews/:review_id` - delete the review that has the id in the URL
+* `PUT /api/v1/reviews:review_id` - update the review that has the id in the URL with the data provided in the request body
+
+#### States
+* `GET /api/v1/states` - fetches a JSON of all states
+* `GET /api/v1/states/:state_id` - fetches a JSON for the state that has the id in the URL
+* `POST /api/v1/states` - creates a new state object from the data provided in the request body
+* `DELETE /api/v1/states/:state_id` - delete the state that has the id in the URL
+* `PUT /api/v1/states/:state_id` - update the state that has the id in the URL with the data provided in the request body
+
+#### Users
+* `GET /api/v1/users` - fetches a JSON of all users
+* `GET /api/v1/users/:user_id` - fetches a JSON for the user that has the id in the URL
+* `POST /api/v1/users` - creates a new user object from the data provided in the request body
+* `DELETE /api/v1/users/:user_id` - delete the user that has the id in the URL
+* `PUT /api/v1/users/:user_id` - update the user that has the id in the URL with the data provided in the request body
+
 ## Bugs
 No known bugs at this time. 
 
 ## Authors
 Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
+Nathan Wood - [Github](https://github.com/natewood2)
+Cody Walenciak - [Github](https://github.com/Cody-j-w)
 
 Second part of Airbnb: Joann Vuong
 ## License
