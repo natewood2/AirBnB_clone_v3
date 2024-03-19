@@ -7,6 +7,7 @@ from datetime import datetime
 import inspect
 import models
 from models.engine import file_storage
+from models import storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -113,3 +114,20 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """ Test that count properly counts. """
+        state_total = storage.count(State)
+        state = State(name="Arizona")
+        state.save()
+        all_states = storage.count(State)
+        self.assertNotEqual(state_total, all_states)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """ Test that get properly retrieves the state.  """
+        state = State(name="Arizona")
+        state.save()
+        temp_state = storage.get(State, state.id)
+        self.assertIs(state, temp_state)
